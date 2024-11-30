@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import time
+import os
 
 CLIENT_ID = 'your_client_id'
 
@@ -19,8 +20,11 @@ batch_size = 1000   # Save data every 1,000 entries
 batch_count = 0     # Track the number of entries fetched in the current batch
 total_entries = 0   # Track total entries fetched
 
-file_path = '/dataset/anime_data.csv'
-
+file_name = 'anime_data.csv'
+directory_name = '/dataset/'
+if os.path.exists(directory_name) == False:
+    os.makedirs(directory_name)
+file_path = os.path.join(directory_name, file_name)
 
 def fetch_anime_data(offset=0, limit=100):
     url = "https://api.myanimelist.net/v2/anime"
