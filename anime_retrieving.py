@@ -3,25 +3,25 @@ import pandas as pd
 import time
 import os
 
-CLIENT_ID = 'your_client_id'
+CLIENT_ID = '02c91975bedd64f2c165d6e45f141b21'
 
 anime_data_fields = ",".join([
     "id", "title", "main_picture", "alternative_titles", "start_date", "end_date",
     "synopsis", "mean", "rank", "popularity", "num_list_users", "num_scoring_users",
-    "nsfw", "media_type", "status", "genres", "num_episodes", "start_season", "source", 
-    "average_episode_duration", "rating", "recommendations", "studios"
+    "nsfw", "media_type", "status", "genres", "num_episodes", "start_season", 
+    "source", "average_episode_duration", "rating", "recommendations", "studios"
 ])
 
 anime_list = []
 
-limit = 100         # Number of entries per request (max 100 for MAL API)
+limit = 10         # Number of entries per request (max 100 for MAL API)
 offset = 0          # Starting point
 batch_size = 1000   # Save data every 1,000 entries
 batch_count = 0     # Track the number of entries fetched in the current batch
 total_entries = 0   # Track total entries fetched
 
 file_name = 'anime_data.csv'
-directory_name = '/dataset/'
+directory_name = 'dataset'
 if os.path.exists(directory_name) == False:
     os.makedirs(directory_name)
 file_path = os.path.join(directory_name, file_name)
@@ -38,7 +38,7 @@ def fetch_anime_data(offset=0, limit=100):
     if response.status_code == 200:
         return response.json()
     else:
-        print(f"Error: {response.status_code}, Offset: {offset}")
+        print(f"Error: {response.status_code}, Offset: {offset}, Message: {response.text}, Params: {params}")
         return None
     
 
